@@ -49,15 +49,22 @@
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-wsl, home-manager, nixvim, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { 
       inherit system;
       config.allowUnfree = true;
     };
+    user = "floch";
+    host = "nixos";
   in
   {
     nixosConfigurations = {
@@ -69,6 +76,11 @@
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
+            home-manager.extraSpecialArgs = {
+              inherit user;
+              inherit host;
+              inherit nixvim;
+            };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.floch = import ./home.nix;
