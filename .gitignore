@@ -6,3 +6,4 @@ hardware-configuration.nix
 # Explicitly track flake.lock
 !flake.lock
 result
+result/
