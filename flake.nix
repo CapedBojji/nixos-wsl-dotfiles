@@ -89,9 +89,11 @@
       };
     };
 
-    homeConfigurations."floch@nixos" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations = {
+      user = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./home.nix ];
+      };
     };
   };
 }
