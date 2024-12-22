@@ -63,14 +63,14 @@
       inherit system;
       config.allowUnfree = true;
     };
-    user = "floch";
+    user = "CapedBaldy";
     host = "nixos";
   in
   {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs; inherit user; };
         modules = [
           nixos-wsl.nixosModules.default
           ./configuration.nix
@@ -83,7 +83,7 @@
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.floch = import ./home.nix;
+            home-manager.users.${user} = import ./home.nix;
           }
         ];
       };

@@ -1,8 +1,8 @@
-{ config, pkgs, ... } :
+{ config, pkgs, user, ... } :
 
 {
-  home.username = "floch";
-  home.homeDirectory = "/home/floch";
+  home.username = user;
+  home.homeDirectory = "/home/${user}";
   home.stateVersion = "24.05";
 
   imports = [
@@ -80,8 +80,8 @@
   # Git configuration
   programs.git = {
     enable = true;
-    userName = "Your Name";  # TODO: Change this
-    userEmail = "your.email@example.com";  # TODO: Change this
+    userName = "CapedBaldy";  # TODO: Change this
+    userEmail = "capedbaldy141@gmail.com";  # TODO: Change this
     delta.enable = true;
     lfs.enable = true;
     extraConfig = {
@@ -114,6 +114,7 @@
         watch_file devenv.nix
         watch_file devenv.lock
         watch_file devenv.yaml
+        watch_file flake.lock
         watch_file pyproject.toml
         watch_file uv.lock
         

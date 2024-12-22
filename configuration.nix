@@ -1,11 +1,11 @@
 # NixOS-WSL config: system packages and settings
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, user, inputs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
   
   wsl = {
     enable = true;
-    defaultUser = "floch";
+    defaultUser = user;
     useWindowsDriver = true;
     wslConf.boot.command = "${pkgs.zsh}/bin/zsh";
   };
@@ -49,7 +49,7 @@
     settings = {
       experimental-features = ["nix-command" "flakes" "repl-flake"];
       auto-optimise-store = true;
-      trusted-users = ["root" "floch"];
+      trusted-users = ["root" user];
       max-jobs = "auto";
       cores = 0;
       keep-outputs = true;
@@ -143,11 +143,11 @@
       enable = true;
       extraArgs = "--keep-since 7d --keep 10";
     };
-    flake = "/home/floch/nixos-config";
+    flake = "/home/${user}/nixos-config";
   };
 
   # Set default shell for your user
-  users.users.floch = {
+  users.users.${user} = {
     shell = pkgs.zsh;
     isNormalUser = true;
     # Keep any other existing user settings
