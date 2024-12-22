@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... } :
+{ config, pkgs, user, nixvim, ... } :
 
 {
   home.username = user;
@@ -7,6 +7,7 @@
 
   imports = [
     ./modules
+    nixvim.homeManagerModules.nixvim
   ];
 
   # Packages that should be installed to the user profile
