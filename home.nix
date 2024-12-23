@@ -76,6 +76,7 @@
     # Add these packages for ephemeral package support
     nix-index  # Required for , (comma) to work
     comma
+
   ];
 
   # Git configuration
