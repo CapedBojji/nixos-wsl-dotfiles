@@ -49,7 +49,7 @@
     fzf
     bat
     eza
-    # zoxide
+    zoxide
 
     # Utils
     tldr
@@ -164,7 +164,7 @@
         "direnv"
         "colored-man-pages"
         "extract"
-        "z"
+        # "z"
         "fzf"
         "dirhistory"
         "per-directory-history"
@@ -274,7 +274,7 @@
       cat = "bat";
 
       # cd alias...nosa
-      cd = "z";
+      # cd = "z";
 
       # less ephemeral
       #",," = "nix run nixpkgs#";
