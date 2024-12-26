@@ -93,7 +93,7 @@
     };
 
     homeConfigurations = {
-      user = home-manager.lib.homeManagerConfiguration {
+      "${user}@${host}" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./home.nix ];
       };
