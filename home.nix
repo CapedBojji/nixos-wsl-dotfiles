@@ -279,6 +279,9 @@
       # less ephemeral
       #",," = "nix run nixpkgs#";
       # ",s" = "nix shell nixpkgs#";
+
+      # Vscode
+      vcr = "code -r";
     };
   };
 
