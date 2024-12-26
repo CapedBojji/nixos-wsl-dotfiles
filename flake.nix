@@ -55,10 +55,9 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    stylix.url = "github:danth/stylix";
   };
 
-  outputs = { self, nixpkgs, nixos-wsl, home-manager, nixvim, stylix, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-wsl, home-manager, nixvim, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { 
@@ -82,7 +81,6 @@
               inherit user;
               inherit host;
               inherit nixvim;
-              inherit stylix;
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -95,6 +93,11 @@
     homeConfigurations = {
       "${user}@${host}" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        extraSpecialArgs = {
+          inherit user;
+          inherit host;
+          inherit nixvim;
+        };
         modules = [ ./home.nix ];
       };
     };

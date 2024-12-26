@@ -7,7 +7,7 @@
 
   imports = [
     ./modules
-    nixvim.homeManagerModules.nixvim
+    # nixvim.homeManagerModules.nixvim
     # stylix.homeManagerModules.stylix
   ];
 
@@ -49,7 +49,7 @@
     fzf
     bat
     eza
-    zoxide
+    # zoxide
 
     # Utils
     tldr
