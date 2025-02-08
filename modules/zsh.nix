@@ -19,7 +19,8 @@
                 "colored-man-pages"
                 "dirhistory"
                 "per-directory-history"
-                "direnv"
+                "direnv",
+                "history"
             ];
             theme = "robbyrussell";
         };
@@ -27,6 +28,18 @@
         enableCompletion = true;
         syntaxHighlighting.enable = true;
         initExtra = ''
+            # Create oh-my-zsh cache directory with proper permissions
+            export ZSH_CACHE_DIR="$HOME/.cache/oh-my-zsh"
+            if [[ ! -d "$ZSH_CACHE_DIR" ]]; then
+                mkdir -p "$ZSH_CACHE_DIR"
+                chmod 755 "$ZSH_CACHE_DIR"
+            fi
+
+            if [[ ! -d "$ZSH_CACHE_DIR/completions" ]]; then
+                mkdir -p "$ZSH_CACHE_DIR/completions"
+                chmod 755 "$ZSH_CACHE_DIR/completions"
+            fi
+
             bindkey '^p' history-search-backward
             bindkey '^n' history-search-forward
             bindkey '^[w' kill-region
@@ -101,6 +114,9 @@
 
             # Vscode alias...
             vcr = "code -r";
+            #   less ephemeral
+            ",," = "nix run nixpkgs#";
+            ",s" = "nix shell nixpkgs#";
         }
     };
 }
