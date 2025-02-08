@@ -142,148 +142,148 @@
     '';
   };
 
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-    defaultKeymap = "emacs";
-    history = {
-      size = 10000;
-      path = "${config.xdg.dataHome}/zsh/history";
-    };
+  # programs.zsh = {
+  #   enable = true;
+  #   autosuggestion.enable = true;
+  #   enableCompletion = true;
+  #   syntaxHighlighting.enable = true;
+  #   defaultKeymap = "emacs";
+  #   history = {
+  #     size = 10000;
+  #     path = "${config.xdg.dataHome}/zsh/history";
+  #   };
 
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "docker"
-        "docker-compose"
-        "sudo"
-        "history"
-        "direnv"
-        "colored-man-pages"
-        "extract"
-        # "z"
-        "fzf"
-        "dirhistory"
-        "per-directory-history"
-      ];
-      theme = "robbyrussell";
-    };
+  #   oh-my-zsh = {
+  #     enable = true;
+  #     plugins = [
+  #       "git"
+  #       "docker"
+  #       "docker-compose"
+  #       "sudo"
+  #       "history"
+  #       "direnv"
+  #       "colored-man-pages"
+  #       "extract"
+  #       # "z"
+  #       "fzf"
+  #       "dirhistory"
+  #       "per-directory-history"
+  #     ];
+  #     theme = "robbyrussell";
+  #   };
 
-    initExtra = ''
-      # Create oh-my-zsh cache directory with proper permissions
-      export ZSH_CACHE_DIR="$HOME/.cache/oh-my-zsh"
-      if [[ ! -d "$ZSH_CACHE_DIR" ]]; then
-        mkdir -p "$ZSH_CACHE_DIR"
-        chmod 755 "$ZSH_CACHE_DIR"
-      fi
+  #   initExtra = ''
+  #     # Create oh-my-zsh cache directory with proper permissions
+  #     export ZSH_CACHE_DIR="$HOME/.cache/oh-my-zsh"
+  #     if [[ ! -d "$ZSH_CACHE_DIR" ]]; then
+  #       mkdir -p "$ZSH_CACHE_DIR"
+  #       chmod 755 "$ZSH_CACHE_DIR"
+  #     fi
 
-      if [[ ! -d "$ZSH_CACHE_DIR/completions" ]]; then
-        mkdir -p "$ZSH_CACHE_DIR/completions"
-        chmod 755 "$ZSH_CACHE_DIR/completions"
-      fi
+  #     if [[ ! -d "$ZSH_CACHE_DIR/completions" ]]; then
+  #       mkdir -p "$ZSH_CACHE_DIR/completions"
+  #       chmod 755 "$ZSH_CACHE_DIR/completions"
+  #     fi
 
-      # Ensure Docker completion file has correct permissions
-      if [ -f "$ZSH_CACHE_DIR/completions/_docker" ]; then
-        chmod 644 "$ZSH_CACHE_DIR/completions/_docker"
-      fi
+  #     # Ensure Docker completion file has correct permissions
+  #     if [ -f "$ZSH_CACHE_DIR/completions/_docker" ]; then
+  #       chmod 644 "$ZSH_CACHE_DIR/completions/_docker"
+  #     fi
 
-      # Existing configuration
-      bindkey '^[[A' history-substring-search-up
-      bindkey '^[[B' history-substring-search-down
-      eval "$(zoxide init zsh)"
+  #     # Existing configuration
+  #     bindkey '^[[A' history-substring-search-up
+  #     bindkey '^[[B' history-substring-search-down
+  #     eval "$(zoxide init zsh)"
 
-      # Better integration with Nix
-      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-      fi
+  #     # Better integration with Nix
+  #     if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  #       . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  #     fi
 
-      # Add SSH agent socket configuration
-      export SSH_AUTH_SOCK="/mnt/wsl/ssh-agent.sock"
+  #     # Add SSH agent socket configuration
+  #     export SSH_AUTH_SOCK="/mnt/wsl/ssh-agent.sock"
 
-      # Nix garbage collection and update helper
-      nix-cleanup() {
-        nix-collect-garbage -d
-        nix store optimise
-        sudo nix-collect-garbage -d
-        sudo nix store optimise
-      }
+  #     # Nix garbage collection and update helper
+  #     nix-cleanup() {
+  #       nix-collect-garbage -d
+  #       nix store optimise
+  #       sudo nix-collect-garbage -d
+  #       sudo nix store optimise
+  #     }
 
-      # Quick flake update
-      nix-update() {
-        nix flake update
-        sudo nixos-rebuild switch --flake .#nixos
-      }
+  #     # Quick flake update
+  #     nix-update() {
+  #       nix flake update
+  #       sudo nixos-rebuild switch --flake .#nixos
+  #     }
 
-      # Configure eza with proper settings for icons
-      export EZA_ICONS_AUTO=1
+  #     # Configure eza with proper settings for icons
+  #     export EZA_ICONS_AUTO=1
       
-      # Remove this line as it might interfere
-      # export EZA_ICONS=always
+  #     # Remove this line as it might interfere
+  #     # export EZA_ICONS=always
       
-      # Instead, use these specific settings
-      export EZA_ICON_SPACING=2
-      export EZA_ICON_TYPE="nerd"
+  #     # Instead, use these specific settings
+  #     export EZA_ICON_SPACING=2
+  #     export EZA_ICON_TYPE="nerd"
       
-      # Ensure proper locale for UTF-8 support
-      export LANG=en_US.UTF-8
-      export LC_ALL=en_US.UTF-8
+  #     # Ensure proper locale for UTF-8 support
+  #     export LANG=en_US.UTF-8
+  #     export LC_ALL=en_US.UTF-8
       
-      # Make sure VSCode terminal uses correct font
-      export TERMINAL_FONT="JetBrainsMono Nerd Font Mono"
+  #     # Make sure VSCode terminal uses correct font
+  #     export TERMINAL_FONT="JetBrainsMono Nerd Font Mono"
 
-      # Initialize nix-index database if it doesn't exist
-      if [ ! -f ~/.cache/nix-index/files ]; then
-        echo "Initializing nix-index database..."
-        nix-index
-      fi
+  #     # Initialize nix-index database if it doesn't exist
+  #     if [ ! -f ~/.cache/nix-index/files ]; then
+  #       echo "Initializing nix-index database..."
+  #       nix-index
+  #     fi
 
-      # Define ,, and ,s as functions for better argument handling
-      function ,,() {
-        nix run "nixpkgs#$1" -- "''${@:2}"
-      }
+  #     # Define ,, and ,s as functions for better argument handling
+  #     function ,,() {
+  #       nix run "nixpkgs#$1" -- "''${@:2}"
+  #     }
 
-      function ,s() {
-        nix shell "nixpkgs#$1" -- "''${@:2}"
-      }
-    '';
+  #     function ,s() {
+  #       nix shell "nixpkgs#$1" -- "''${@:2}"
+  #     }
+  #   '';
 
-    shellAliases = {
-      # System management
-      # update = "sudo nixos-rebuild switch --flake .#nixos"; # not needed with nh
+  #   shellAliases = {
+  #     # System management
+  #     # update = "sudo nixos-rebuild switch --flake .#nixos"; # not needed with nh
       
-      # Enhanced NH aliases
-      nos = "nh os switch . --dry && nh home switch . --dry";     # Safe preview of system changes
-      nosa = "nh os switch . && nh home switch .";  # System + Home-manager switch
-      ndiff = "nvd diff /run/current-system /nix/var/nix/profiles/system";    # View system differences
+  #     # Enhanced NH aliases
+  #     nos = "nh os switch . --dry && nh home switch . --dry";     # Safe preview of system changes
+  #     nosa = "nh os switch . && nh home switch .";  # System + Home-manager switch
+  #     ndiff = "nvd diff /run/current-system /nix/var/nix/profiles/system";    # View system differences
       
-      nhs = "nh home switch .";         # Home-manager switch
-      ngc = "nh clean all --keep-since 7d --keep 10";             # Clean both user and system
-      ngcd = "nh clean all --dry --keep-since 7d --keep 10";             # Clean both user and system
-      nsc = "nh search";                # Quick package search
+  #     nhs = "nh home switch .";         # Home-manager switch
+  #     ngc = "nh clean all --keep-since 7d --keep 10";             # Clean both user and system
+  #     ngcd = "nh clean all --dry --keep-since 7d --keep 10";             # Clean both user and system
+  #     nsc = "nh search";                # Quick package search
       
-      # ls aliases...
-      ll = "eza -l --icons=always --group-directories-first --git";
-      la = "eza -la --icons=always --group-directories-first --git";
-      ls = "eza --icons=always --group-directories-first";
-      lt = "eza --tree --icons=always --group-directories-first";
+  #     # ls aliases...
+  #     ll = "eza -l --icons=always --group-directories-first --git";
+  #     la = "eza -la --icons=always --group-directories-first --git";
+  #     ls = "eza --icons=always --group-directories-first";
+  #     lt = "eza --tree --icons=always --group-directories-first";
 
-      # cat alias...
-      cat = "bat";
+  #     # cat alias...
+  #     cat = "bat";
 
-      # cd alias...nosa
-      # cd = "z";
+  #     # cd alias...nosa
+  #     # cd = "z";
 
-      # less ephemeral
-      #",," = "nix run nixpkgs#";
-      # ",s" = "nix shell nixpkgs#";
+  #     # less ephemeral
+  #     #",," = "nix run nixpkgs#";
+  #     # ",s" = "nix shell nixpkgs#";
 
-      # Vscode
-      vcr = "code -r";
-    };
-  };
+  #     # Vscode
+  #     vcr = "code -r";
+  #   };
+  # };
 
   # Basic bash configuration
   programs.bash = {
