@@ -2,6 +2,7 @@
 { config, lib, pkgs, user, inputs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
   
   wsl = {
     enable = true;

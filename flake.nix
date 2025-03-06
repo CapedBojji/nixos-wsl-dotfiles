@@ -51,8 +51,8 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:khaneliman/khanelivim";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
   };
@@ -81,6 +81,7 @@
               inherit user;
               inherit host;
               inherit nixvim;
+              inherit system;
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

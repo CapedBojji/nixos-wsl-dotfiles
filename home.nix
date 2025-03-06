@@ -1,4 +1,4 @@
-{ config, pkgs, user, nixvim, stylix, ... } :
+{ config, pkgs, user, nixvim, stylix, system, ... } :
 
 {
   home.username = user;
@@ -78,6 +78,8 @@
     nix-index  # Required for , (comma) to work
     comma
 
+    # Add nixvim
+    nixvim.packages.${system}.default
   ];
 
   # Git configuration
@@ -116,9 +118,6 @@
       # Add your aliases here
     };
   };
-
- 
-
 
   # Add this section for better XDG compliance
   xdg = {
