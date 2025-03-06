@@ -79,7 +79,7 @@
     comma
 
     # Add nixvim
-    # nixvim.packages.${system}.default
+    nixvim.packages.${system}.default
   ];
 
   # Git configuration

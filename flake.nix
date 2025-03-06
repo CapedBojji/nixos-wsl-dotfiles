@@ -50,10 +50,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:khaneliman/khanelivim";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    nixvim.url = "github:dc-tec/nixvim"
 
   };
 
