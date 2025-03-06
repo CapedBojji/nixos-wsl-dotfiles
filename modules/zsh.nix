@@ -19,7 +19,7 @@
                 "colored-man-pages"
                 "dirhistory"
                 "per-directory-history"
-                "direnv",
+                "direnv"
                 "history"
             ];
             theme = "robbyrussell";
@@ -117,6 +117,6 @@
             #   less ephemeral
             ",," = "nix run nixpkgs#";
             ",s" = "nix shell nixpkgs#";
-        }
+        };
     };
 }
