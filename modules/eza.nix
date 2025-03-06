@@ -5,8 +5,5 @@
         icons = true;
         enableZshIntegration = true;
         git = true;
-        extraOptions = ''
-
-        '';
     };
 }
